@@ -1,7 +1,6 @@
 #pragma once
 #define WinGlfw_Class_H
 #include "../WinBase.h"
-#include<Render/RenderAPI.h>
 class WinGlfw :
     public WinBase
 {
@@ -14,5 +13,7 @@ public:
     virtual void Refresh() override;
     virtual void SetBgColor(float Red, float Green, float Blue, float Alpha) override;
     virtual void* GetWindowPtrWin32() override;
+
+    RenderAPI SetContext(RenderAPI API);
     ~WinGlfw();
 };

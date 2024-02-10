@@ -45,7 +45,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v142</PlatformToolset>
+    <PlatformToolset>v143</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
@@ -72,7 +72,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v142</PlatformToolset>
+    <PlatformToolset>v143</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
@@ -319,32 +319,29 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Resources\Render\Mesh\Glad\GladMesh.cpp" />
-    <ClCompile Include="Resources\Debug\Debugger.cpp" />
+    <ClCompile Include="Resources\Render\Glad\Mesh\MeshGlad.cpp" />
     <ClCompile Include="Resources\Render\Mesh\MeshBase.cpp" />
-    <ClCompile Include="Resources\Render\Shader\Glad\GladShader.cpp" />
+    <ClCompile Include="Resources\Render\Glad\RenderGlad.cpp" />
+    <ClCompile Include="Resources\Render\RenderBase.cpp" />
+    <ClCompile Include="Resources\Debug\Debugger.cpp" />
     <ClCompile Include="Resources\Engine\Atrip\Atrip.cpp" />
     <ClCompile Include="Resources\Engine\EngineBase.cpp" />
-    <ClCompile Include="Resources\Render\Glad\Common glad glfw.cpp" />
-    <ClCompile Include="Resources\Render\Glad\GladRender.cpp" />
-    <ClCompile Include="Resources\Render\RenderBase.cpp" />
     <ClCompile Include="Resources\Window\WinBase.cpp" />
     <ClCompile Include="Resources\Window\WinGlfw\WinGlfw.cpp" />
+    <ClCompile Include="Resources\Render\Shader\ShaderBase.cpp" />
+    <ClCompile Include="Resources\Render\Glad\Shader\ShaderGlad.cpp" />
     <ClCompile Include="Source.cpp" />
     <ClCompile Include="Vendor\Lib\All\Glad\glad.c" />
     <ClCompile Include="Resources\Window\Win32 addition\Win32.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Resources\Render\Mesh\Glad\GladMesh.h" />
+    <ClInclude Include="Resources\Render\Glad\Mesh\MeshGlad.h" />
     <ClInclude Include="Resources\Render\Mesh\MeshBase.h" />
-    <ClInclude Include="Resources\Render\Mesh\MeshData.h" />
-    <ClInclude Include="Resources\Render\Shader\Glad\GladShader.h" />
+    <ClInclude Include="Resources\Render\Glad\RenderGlad.h" />
+    <ClInclude Include="Resources\Render\RenderBase.h" />
     <ClInclude Include="Resources\Engine\Atrip\Atrip.h" />
     <ClInclude Include="Resources\Debug\Debugger.h" />
     <ClInclude Include="Resources\Engine\EngineBase.h" />
-    <ClInclude Include="Resources\Render\Glad\GladRender.h" />
-    <ClInclude Include="Resources\Render\RenderAPI.h" />
-    <ClInclude Include="Resources\Render\RenderBase.h" />
     <ClInclude Include="Resources\Window\Win32 addition\MsgBoxIcon.h" />
     <ClInclude Include="Resources\Window\Win32 addition\MsgBoxReturnButton.h" />
     <ClInclude Include="Resources\Window\Win32 addition\MsgBoxTypes.h" />
@@ -352,6 +349,7 @@
     <ClInclude Include="Resources\Window\WinGlfw\GlfwWinData.h" />
     <ClInclude Include="Resources\Window\WinGlfw\WinGlfw.h" />
     <ClInclude Include="Resources\Render\Shader\ShaderBase.h" />
+    <ClInclude Include="Resources\Render\Glad\Shader\ShaderGlad.h" />
     <ClInclude Include="Vendor\Include\32\GLFW\glfw3.h" />
     <ClInclude Include="Vendor\Include\32\GLFW\glfw3native.h" />
     <ClInclude Include="Vendor\Include\64\GLFW\glfw3.h" />

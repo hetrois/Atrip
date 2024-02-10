@@ -3,7 +3,6 @@
 #include "Atrip.h"
 #include <Debug/Debugger.h>
 #include <Window/WinGlfw/WinGlfw.h>
-#include <Render/Mesh/Glad/GladMesh.h>
 
 // Vertex Shader source code
 const char* vertexShaderSource = "#version 330 core\n"
@@ -43,15 +42,13 @@ unsigned int indices[] =
 Atrip::Atrip()
 {
     Log("Engine start");
-	Win = new WinGlfw(800, 600, "hello", RenderAPI::Gl330);
+	Win = new WinGlfw(800, 600, "hello", RenderAPI::Auto);
 	Win->SetBgColor(0, 0, 1, 1);
 }
 
 bool Atrip::Run()
 {
-	MeshData data = { vertices, indices, 3 };
-	Win->GetRenderer()->AddShader(vertexShaderSource, fragmentShaderSource);
-	Win->GetRenderer()->AddMesh(data);
+	Win->GetRenderer()->AddMesh(vertices, indices, 3);
 
 	while (!Win->ShouldClose())
 	{

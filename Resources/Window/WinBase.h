@@ -8,6 +8,8 @@ class WinBase abstract
 protected:
 	void* Window;
 	RenderBase* render;
+	RenderAPI api;
+
 	int WinNumList;
 	static std::vector<WinBase*> Wins;
 

@@ -6,7 +6,6 @@
 #include <GLFW/glfw3.h>
 #include <GLFW/glfw3native.h>
 #include <Debug/Debugger.h>
-#include <Render/Glad/GladRender.h>
 #include<Window/Win32 addition/Win32.h>
 
 
@@ -30,37 +29,7 @@ WinGlfw::WinGlfw(int x, int y, const char* text, RenderAPI API)
 
 	glfwInit();
 
-#pragma region Set API
-	switch (API)
-	{
-	case RenderAPI::None:
-		glfwWindowHint(GLFW_CLIENT_API, GLFW_NO_API);
-		break;
-	case RenderAPI::Gl220:
-		glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 2);
-		glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 0);
-		glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_ANY_PROFILE);
-		break;
-	case RenderAPI::Gl330:
-		glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
-		glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
-		glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-		break;
-	case RenderAPI::Gl440:
-		glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
-		glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 4);
-		glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-		break;
-	case RenderAPI::Gl460:
-		glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
-		glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 6);
-		glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-		break;
-	default:
-		ErrorLog("Strange API");
-		break;
-	}
-#pragma endregion
+	api = SetContext(API);
 
 	Window = glfwCreateWindow(x, y, text, NULL, NULL);
 
@@ -72,7 +41,7 @@ WinGlfw::WinGlfw(int x, int y, const char* text, RenderAPI API)
 
 	glfwMakeContextCurrent((GLFWwindow*)Window);
 
-	render = RenderBase::GetRenderBasedOnApi(API);
+	render = RenderBase::GetRenderBasedOnApi(api);
 
 	render->ResizeViewport(800, 600);
 
@@ -127,6 +96,97 @@ void WinGlfw::SetBgColor(float Red, float Green, float Blue, float Alpha)
 void* WinGlfw::GetWindowPtrWin32()
 {
 	return glfwGetWin32Window((GLFWwindow*)Window);
+}
+
+RenderAPI WinGlfw::SetContext(RenderAPI API)
+{
+	switch (API)
+	{
+	case RenderAPI::None:
+		glfwWindowHint(GLFW_CLIENT_API, GLFW_NO_API);
+		return RenderAPI::None;
+		break;
+	case RenderAPI::GL220:
+		glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 2);
+		glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 0);
+		glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_ANY_PROFILE);
+		return RenderAPI::GL220;
+		break;
+	case RenderAPI::GL330:
+		glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
+		glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
+		glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+		return RenderAPI::GL330;
+		break;
+	case RenderAPI::GL440:
+		glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
+		glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 4);
+		glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+		return RenderAPI::GL440;
+		break;
+	case RenderAPI::GL460:
+		glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
+		glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 6);
+		glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+		return RenderAPI::GL460;
+		break;
+	case RenderAPI::Auto:
+		auto window = glfwCreateWindow(640, 480, "test", 0, 0);
+
+		if (!window)
+		{
+			glfwTerminate();
+			FailLog("Cannot make a test window");
+			ErrorLog("Fail to get context");
+		}
+
+		glfwMakeContextCurrent(window);
+
+		int major, minor, rev;
+
+		glfwGetVersion(&major, &minor, &rev);
+
+		RenderAPI api;
+
+		float version = major;
+
+		version += minor * 0.1f;
+
+		if (version >= 4.6f)
+		{
+			glfwDestroyWindow(window);
+			glfwTerminate();
+			glfwInit();
+			return SetContext(RenderAPI::GL460);
+		}
+		else if (version >= 4.4f)
+		{
+			glfwDestroyWindow(window);
+			glfwTerminate();
+			glfwInit();
+			return SetContext(RenderAPI::GL440);
+		}
+		else if (version >= 3.3f)
+		{
+			glfwDestroyWindow(window);
+			glfwTerminate();
+			glfwInit();
+			return SetContext(RenderAPI::GL330);
+		}
+		else if (version >= 2.2f)
+		{
+			glfwDestroyWindow(window);
+			glfwTerminate();
+			glfwInit();
+			return SetContext(RenderAPI::GL220);
+		}
+		else
+		{
+			ErrorLog("UnSupported Opengl Version");
+		}
+
+		break;
+	}
 }
 
 WinGlfw::~WinGlfw()

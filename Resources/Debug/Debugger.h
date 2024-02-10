@@ -1,6 +1,7 @@
 #pragma once
 #define Debugger_Class_H
 
+typedef unsigned int uint;
 
 #ifdef _DEBUG
 

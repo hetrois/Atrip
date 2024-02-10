@@ -1,17 +1,30 @@
 #pragma once
-#include"RenderAPI.h"
+#define RenderBase_Class_H
+
+#include "Mesh/MeshBase.h"
+#include "Shader/ShaderBase.h"
 #include<vector>
-#include<Render/Shader/ShaderBase.h>
+
+
+enum class RenderAPI
+{
+	None,
+	GL220,
+	GL330,
+	GL440,
+	GL460,
+	Auto
+};
+
 class RenderBase abstract
 {
 protected:
-
-	ShaderBase* shader;
+	ShaderBase* Shader;
+	MeshBase* Meshs;
 public:
-	virtual void ResizeViewport(int x, int y) abstract;
-	virtual void Draw() abstract;
-	virtual void AddMesh(MeshData& mesh) abstract;
-	virtual void AddShader(const char* VertexShaderCode, const char* FragmentShaderCode) abstract;
 	static RenderBase* GetRenderBasedOnApi(RenderAPI api);
+	virtual void ResizeViewport(int x, int y) abstract;
+	virtual void AddMesh(float vertices[], uint indices[], uint stride) abstract;
+	virtual void Draw() abstract;
 };
 

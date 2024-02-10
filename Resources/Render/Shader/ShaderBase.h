@@ -1,13 +1,9 @@
 #pragma once
 #define ShaderBase_Class_H
 
-class ShaderBase
+class ShaderBase abstract
 {
-protected:
-	unsigned int Program;
-	unsigned int Vertex;
-	unsigned int Fragment;
 public:
-	virtual void Use() abstract;
+	virtual void Active() abstract;
 };
 
