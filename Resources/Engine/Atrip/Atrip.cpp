@@ -21,7 +21,7 @@ const char* fragmentShaderSource = "#version 330 core\n"
 
 
 
-float vertices[] =
+std::vector<float> vertices =
 {
 	-0.5f, -0.5f * float(sqrt(3)) / 3, 0.0f, // Lower left corner
 	0.5f, -0.5f * float(sqrt(3)) / 3, 0.0f, // Lower right corner
@@ -31,7 +31,7 @@ float vertices[] =
 	0.0f, -0.5f * float(sqrt(3)) / 3, 0.0f // Inner down
 };
 
-unsigned int indices[] =
+std::vector<uint> indices =
 {
 	0, 3, 5, // Lower left triangle
 	3, 2, 4, // Lower right triangle

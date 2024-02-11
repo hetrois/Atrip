@@ -37,7 +37,7 @@ void RenderGlad::ResizeViewport(int x, int y)
 	Log("Resize window");
 }
 
-void RenderGlad::AddMesh(float vertices[], uint indices[], uint stride)
+void RenderGlad::AddMesh(std::vector<float>& vertices, std::vector<uint>& indices, uint stride)
 {
 	Meshs = new MeshGlad(vertices, indices, stride);
 }

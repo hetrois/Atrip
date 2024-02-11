@@ -24,7 +24,7 @@ protected:
 public:
 	static RenderBase* GetRenderBasedOnApi(RenderAPI api);
 	virtual void ResizeViewport(int x, int y) abstract;
-	virtual void AddMesh(float vertices[], uint indices[], uint stride) abstract;
+	virtual void AddMesh(std::vector<float>& vertices, std::vector<uint>& indices, uint stride) abstract;
 	virtual void Draw() abstract;
 };
 
